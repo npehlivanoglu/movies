@@ -13,7 +13,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @EntityGraph(attributePaths = "distributor")
     List<Movie> findAllByYearOrderByName(int year);
 
-    @EntityGraph(attributePaths = {"genres", "directors", "comments"})
+    @EntityGraph(attributePaths = {"genres", "directors"})
     Optional<Movie> findById(long id);
 
     @Modifying
