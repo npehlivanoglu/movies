@@ -26,6 +26,10 @@ public class MovieService {
         return movieRepository.findById(id);
     }
 
+    public Optional<Movie> findByIdMetAlles(long id) {
+        return movieRepository.findByIdMetAlles(id);
+    }
+
     @Transactional
     public int increaseRanking(long id) {
         if (movieRepository.increaseRanking(id) == 0) {

@@ -13,8 +13,13 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @EntityGraph(attributePaths = "distributor")
     List<Movie> findAllByYearOrderByName(int year);
 
-    @EntityGraph(attributePaths = {"genres", "directors"})
+    //@EntityGraph(attributePaths = {"genres", "directors"})
     Optional<Movie> findById(long id);
+
+
+    @EntityGraph(attributePaths = {"genres", "directors","distributor"})
+    @Query("select m from Movie m where m.id = :id")
+    Optional<Movie> findByIdMetAlles(long id);
 
     @Modifying
     @Query("update Movie m set m.ranking = m.ranking + 1 where m.id = :id")

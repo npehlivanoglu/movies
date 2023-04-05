@@ -21,7 +21,7 @@ public class Movie {
     private String name;
     private int year;
     private BigDecimal ranking;
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
     @JoinColumn(name = "distributorId")
     private Distributor distributor;
 

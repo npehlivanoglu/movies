@@ -59,7 +59,7 @@ class MovieController {
 
     @GetMapping("/{id}")
     MovieMetAlles findById(@PathVariable long id) {
-        var movie = movieService.findById(id).orElseThrow(MovieNietGevondenException::new);
+        var movie = movieService.findByIdMetAlles(id).orElseThrow(MovieNietGevondenException::new);
         return new MovieMetAlles(movie);
     }
 
