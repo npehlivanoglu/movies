@@ -1,5 +1,6 @@
 package be.vdab.movies.controllers;
 
+import be.vdab.movies.domain.Comment;
 import be.vdab.movies.domain.Director;
 import be.vdab.movies.domain.Genre;
 import be.vdab.movies.domain.Movie;
@@ -7,12 +8,10 @@ import be.vdab.movies.dto.FirstNameLastName;
 import be.vdab.movies.dto.RoleNamePersoonGender;
 import be.vdab.movies.exceptions.MovieNietGevondenException;
 import be.vdab.movies.services.MovieService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -28,6 +27,12 @@ class MovieController {
     private record NameRankingDistributorName(String name, BigDecimal ranking, String distributorName) {
         NameRankingDistributorName(Movie movie) {
             this(movie.getName(), movie.getRanking(), movie.getDistributor().getName());
+        }
+    }
+
+    private record MovieMetComment(String emailAdress, String comment, LocalDateTime moment) {
+        MovieMetComment(Comment comment) {
+            this(comment.getEmailAddress(), comment.getComment(), comment.getMoment());
         }
     }
 
@@ -56,5 +61,17 @@ class MovieController {
     MovieMetAlles findById(@PathVariable long id) {
         var movie = movieService.findById(id).orElseThrow(MovieNietGevondenException::new);
         return new MovieMetAlles(movie);
+    }
+
+    @GetMapping("/{id}/comments")
+    Stream<MovieMetComment> findByIdComments(@PathVariable long id) {
+        var movie = movieService.findById(id).orElseThrow(MovieNietGevondenException::new);
+
+        return movie.getComments().stream().map(MovieMetComment::new);
+    }
+
+    @PostMapping("/{id}/increaseRanking")
+    int increaseRanking(@PathVariable long id) {
+        return movieService.increaseRanking(id);
     }
 }

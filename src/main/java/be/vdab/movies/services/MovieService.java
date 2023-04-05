@@ -1,6 +1,7 @@
 package be.vdab.movies.services;
 
 import be.vdab.movies.domain.Movie;
+import be.vdab.movies.exceptions.MovieNietGevondenException;
 import be.vdab.movies.repositories.MovieRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +24,14 @@ public class MovieService {
 
     public Optional<Movie> findById(long id) {
         return movieRepository.findById(id);
+    }
+
+    @Transactional
+    public int increaseRanking(long id) {
+        if (movieRepository.increaseRanking(id) == 0) {
+            throw new MovieNietGevondenException();
+        } else {
+            return 1;
+        }
     }
 }

@@ -8,7 +8,7 @@ import java.util.Objects;
 @Access(AccessType.FIELD)
 public class Role {
     private String name;
-    @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "actorId")
     private Actor actor;
 

@@ -12,12 +12,12 @@ import java.util.Objects;
 @Embeddable
 @Access(AccessType.FIELD)
 public class Comment {
-    private String emailAdress;
+    private String emailAddress;
     private String comment;
     private LocalDateTime moment;
 
-    public Comment(@Email @NotNull String emailAdress, @NotNull String comment, @NotNull LocalDateTime moment) {
-        this.emailAdress = emailAdress;
+    public Comment(@Email @NotNull String emailAddress, @NotNull String comment, @NotNull LocalDateTime moment) {
+        this.emailAddress = emailAddress;
         this.comment = comment;
         this.moment = moment;
     }
@@ -26,8 +26,8 @@ public class Comment {
 
     }
 
-    public String getEmailAdress() {
-        return emailAdress;
+    public String getEmailAddress() {
+        return emailAddress;
     }
 
     public String getComment() {
@@ -43,11 +43,13 @@ public class Comment {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Comment comment1)) return false;
-        return emailAdress.equals(comment1.emailAdress) && comment.equals(comment1.comment);
+        return emailAddress.equals(comment1.emailAddress) && comment.equals(comment1.comment);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(emailAdress, comment);
+        return Objects.hash(emailAddress, comment);
     }
+
+
 }
