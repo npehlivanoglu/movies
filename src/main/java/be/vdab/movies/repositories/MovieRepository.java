@@ -17,7 +17,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     Optional<Movie> findById(long id);
 
 
-    @EntityGraph(attributePaths = {"genres", "directors","distributor"})
+    @EntityGraph(attributePaths = {"genres", "directors"})
     @Query("select m from Movie m where m.id = :id")
     Optional<Movie> findByIdMetAlles(long id);
 
